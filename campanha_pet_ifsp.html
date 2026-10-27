@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto PET 3D - IFSP Caraguatatuba (PIBITI)</title>
+    
+    <!-- Google Fonts Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        tech: {
+                            dark: '#0f172a',
+                            navy: '#1e293b',
+                            accent: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .pulse-glow {
+            animation: pulseGlow 3s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.7); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Navegação Fixa -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-recycle"></i>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-lg tracking-tight text-slate-900 block leading-none">PET 3D <span class="text-emerald-600">IFSP</span></span>
+                        <span class="text-[10px] text-slate-500 font-semibold tracking-wider uppercase">Caraguatatuba</span>
+                    </div>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-6 font-medium text-sm text-slate-600">
+                    <a href="#identificacao" class="hover:text-emerald-600 transition-colors">PIBITI</a>
+                    <a href="#por-que-doar" class="hover:text-emerald-600 transition-colors">Por Que Doar?</a>
+                    <a href="#processo" class="hover:text-emerald-600 transition-colors">Como Funciona</a>
+                    <a href="#calculadora" class="hover:text-emerald-600 transition-colors">Calculadora</a>
+                    <a href="#onde-doar" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full font-semibold shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all hover:scale-105 flex items-center gap-2">
+                        <i class="fa-solid fa-box-archive"></i> Onde Doar
+                    </a>
+                </div>
+
+                <!-- Botão Mobile -->
+                <div class="md:hidden flex items-center">
+                    <a href="#onde-doar" class="bg-emerald-600 text-white px-4 py-2 rounded-full font-semibold text-xs flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-location-dot"></i> Ponto de Coleta
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-28 pb-16 lg:pt-36 lg:pb-28 overflow-hidden bg-slate-900 text-white">
+        <!-- Background Gradients & Glows -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <!-- Badge de Destaque -->
+            <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                Ponto de Coleta na Entrada do Câmpus IFSP Caraguatatuba
+            </div>
+
+            <!-- Título Principal -->
+            <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
+                Transforme Garrafas PET em <br class="hidden sm:block" />
+                <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 bg-clip-text text-transparent">Ciência e Tecnologia!</span>
+            </h1>
+
+            <!-- Subtítulo -->
+            <p class="text-base sm:text-xl max-w-3xl mx-auto text-slate-300 mb-10 font-light leading-relaxed">
+                Deixe suas garrafas no recipiente localizado na <strong class="text-white font-medium">entrada do campus</strong>. 
+                Sua doação será reciclada e transformada em filamento de alta qualidade para impressoras 3D, construindo equipamentos didáticos para o ensino de Física.
+            </p>
+
+            <!-- Botões de Ação -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#onde-doar" class="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-full text-base shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all hover:scale-105 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-hand-holding-heart text-lg"></i> Quero Doar Garrafas
+                </a>
+                <a href="#calculadora" class="w-full sm:w-auto px-8 py-4 bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-full font-semibold text-base transition-all hover:border-slate-500 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calculator text-emerald-400"></i> Simular Meu Impacto
+                </a>
+            </div>
+
+            <!-- Cards Rápidos de Impacto -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+                <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-emerald-400 text-2xl font-bold font-heading">1.75 mm</div>
+                    <div class="text-slate-400 text-xs font-medium mt-1">Filamento de Precisão</div>
+                </div>
+                <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-sky-400 text-2xl font-bold font-heading">Arduino</div>
+                    <div class="text-slate-400 text-xs font-medium mt-1">Automação PID</div>
+                </div>
+                <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-emerald-400 text-2xl font-bold font-heading">100% Eco</div>
+                    <div class="text-slate-400 text-xs font-medium mt-1">Economia Circular</div>
+                </div>
+                <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-purple-400 text-2xl font-bold font-heading">Física 3D</div>
+                    <div class="text-slate-400 text-xs font-medium mt-1">Kits para Laboratório</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Ficha de Identificação do Projeto PIBITI -->
+    <section id="identificacao" class="py-12 bg-emerald-900 text-white relative -mt-6 rounded-t-3xl shadow-xl z-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-800">
+                    <div>
+                        <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Projeto Institucional de Pesquisa
+                        </span>
+                        <h2 class="font-heading text-xl sm:text-2xl font-bold text-white mt-2">
+                            [Edital 16/2026] PIBITI - CNPq / IFSP
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-1">
+                            Programa Institucional de Bolsas de Iniciação em Desenvolvimento Tecnológico e Inovação
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-2xl border border-slate-700 text-xs text-slate-300">
+                        <i class="fa-solid fa-microchip text-emerald-400 text-base"></i>
+                        <span>Inovação & Automação</span>
+                    </div>
+                </div>
+
+                <!-- Detalhes da Equipe -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
+                        <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider block mb-1">
+                            <i class="fa-solid fa-user-gear text-emerald-400 mr-1.5"></i> Professor Coordenador
+                        </span>
+                        <p class="font-bold text-slate-100 text-base">Prof. Dr. Alex Lino</p>
+                        <p class="text-xs text-slate-400">Coordenador do Projeto de Pesquisa</p>
+                    </div>
+
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
+                        <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider block mb-1">
+                            <i class="fa-solid fa-user-graduate text-sky-400 mr-1.5"></i> Alunos Pesquisadores
+                        </span>
+                        <p class="font-bold text-slate-100 text-sm">Jose Walter Souza Santana</p>
+                        <p class="font-bold text-slate-100 text-sm">Arthur Cantuario Pereira</p>
+                    </div>
+
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
+                        <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider block mb-1">
+                            <i class="fa-solid fa-building-columns text-purple-400 mr-1.5"></i> Curso & Instituição
+                        </span>
+                        <p class="font-bold text-slate-100 text-base">Licenciatura em Física</p>
+                        <p class="text-xs text-slate-400">IFSP Câmpus Caraguatatuba</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Por Que Doar Suas Garrafas? -->
+    <section id="por-que-doar" class="py-20 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-emerald-600 font-bold text-sm uppercase tracking-wider">Impacto Positivo</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+                    Por Que Sua Doação É Tão Importante?
+                </h2>
+                <p class="text-slate-600 mt-3 max-w-2xl mx-auto text-base">
+                    Sua garrafa PET descartada na portaria do IFSP ganha uma nova vida útil, abastecendo a pesquisa tecnológica e os laboratórios didáticos do campus.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-5">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Sustentabilidade Real</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Retira plástico do meio ambiente e de aterros sanitários do Litoral Norte, promovendo a economia circular direta no campus.
+                        </p>
+                    </div>
+                    <span class="mt-6 inline-block text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full w-fit">
+                        Redução de Resíduos
+                    </span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-5">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Inovação com Arduino</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Desenvolvimento de engenharia nacional: controle de temperatura PID e monitoramento em malha fechada para garantir 1,75 mm de diâmetro.
+                        </p>
+                    </div>
+                    <span class="mt-6 inline-block text-xs font-semibold text-sky-600 bg-sky-50 px-3 py-1.5 rounded-full w-fit">
+                        Tecnologia Aberta
+                    </span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-5">
+                            <i class="fa-solid fa-atom"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Kits para Física</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            O filamento é utilizado para imprimir roldanas, suportes, peças para mecânica e ondulatória, enriquecendo as aulas práticas.
+                        </p>
+                    </div>
+                    <span class="mt-6 inline-block text-xs font-semibold text-purple-600 bg-purple-50 px-3 py-1.5 rounded-full w-fit">
+                        Ensino Prático
+                    </span>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-5">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Redução de Custos</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Filamentos comerciais (PLA/ABS) têm alto custo. Produzir o próprio insumo gera economia drástica para a instituição pública.
+                        </p>
+                    </div>
+                    <span class="mt-6 inline-block text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1.5 rounded-full w-fit">
+                        Eficiência Econômica
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona o Processo (Passos) -->
+    <section id="processo" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-emerald-600 font-bold text-sm uppercase tracking-wider">Etapas da Reciclagem</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+                    Como o Plástico se Torna Experimento?
+                </h2>
+                <p class="text-slate-600 mt-3 max-w-2xl mx-auto text-base">
+                    Acompanhe o ciclo completo de transformação desde a sua doação até a impressora 3D.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                
+                <!-- Passo 1 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-slate-100 hover-lift">
+                    <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold font-heading flex items-center justify-center mb-4 text-sm shadow-md">
+                        1
+                    </div>
+                    <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Descarte Consciente</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        Você deposita a garrafa PET limpa no recipiente localizado na <strong>entrada do IFSP Caraguatatuba</strong>.
+                    </p>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-slate-100 hover-lift">
+                    <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold font-heading flex items-center justify-center mb-4 text-sm shadow-md">
+                        2
+                    </div>
+                    <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Preparo e Fatiamento</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        A garrafa é higienizada e cortada em fita contínua e uniforme com lâminas calibradas de precisão.
+                    </p>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-slate-100 hover-lift">
+                    <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold font-heading flex items-center justify-center mb-4 text-sm shadow-md">
+                        3
+                    </div>
+                    <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Extrusão com Arduino</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        A fita passa pelo bico aquecido. O Arduino ajusta velocidade e temperatura para gerar o fio perfeito de 1,75 mm.
+                    </p>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-slate-100 hover-lift">
+                    <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold font-heading flex items-center justify-center mb-4 text-sm shadow-md">
+                        4
+                    </div>
+                    <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Impressão & Física</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                        O filamento é utilizado nas impressoras 3D do curso de Licenciatura em Física para criar novos kits didáticos.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculadora de Impacto Ecológico -->
+    <section id="calculadora" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <span class="text-emerald-400 font-bold text-sm uppercase tracking-wider">Simulador Interativo</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white mt-1">
+                    Calculadora de Impacto das Suas Garrafas
+                </h2>
+                <p class="text-slate-300 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+                    Digite quantas garrafas PET (2 Litros) você pretende doar e descubra em tempo real o que ela vai gerar no laboratório!
+                </p>
+            </div>
+
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 sm:p-10 backdrop-blur-md shadow-2xl">
+                
+                <!-- Input Principal -->
+                <div class="max-w-xl mx-auto mb-10 text-center">
+                    <label for="qtdGarrafas" class="block text-slate-300 font-semibold mb-3 text-sm">
+                        Quantidade de Garrafas PET de 2 Litros:
+                    </label>
+                    
+                    <div class="flex items-center justify-center gap-3">
+                        <button onclick="alterarGarrafas(-5)" class="w-12 h-12 rounded-2xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xl flex items-center justify-center transition-all">-</button>
+                        
+                        <input type="number" id="qtdGarrafas" value="10" min="1" max="1000" oninput="calcularImpacto()"
+                            class="w-32 h-14 bg-slate-900 border-2 border-emerald-500/50 focus:border-emerald-400 rounded-2xl text-center text-2xl font-extrabold font-heading text-emerald-400 focus:outline-none transition-all shadow-inner">
+                        
+                        <button onclick="alterarGarrafas(5)" class="w-12 h-12 rounded-2xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xl flex items-center justify-center transition-all">+</button>
+                    </div>
+
+                    <!-- Botões Rápidos -->
+                    <div class="flex justify-center gap-2 mt-4 text-xs">
+                        <button onclick="setGarrafas(5)" class="px-3 py-1.5 rounded-lg bg-slate-700/60 hover:bg-emerald-600 text-slate-300 hover:text-white transition-all">+5 garrafas</button>
+                        <button onclick="setGarrafas(10)" class="px-3 py-1.5 rounded-lg bg-slate-700/60 hover:bg-emerald-600 text-slate-300 hover:text-white transition-all">+10 garrafas</button>
+                        <button onclick="setGarrafas(25)" class="px-3 py-1.5 rounded-lg bg-slate-700/60 hover:bg-emerald-600 text-slate-300 hover:text-white transition-all">+25 garrafas</button>
+                        <button onclick="setGarrafas(50)" class="px-3 py-1.5 rounded-lg bg-slate-700/60 hover:bg-emerald-600 text-slate-300 hover:text-white transition-all">+50 garrafas</button>
+                    </div>
+                </div>
+
+                <!-- Resultados em Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/50 text-center">
+                        <div class="text-emerald-400 text-3xl font-extrabold font-heading" id="resMassa">280 g</div>
+                        <div class="text-slate-400 text-xs font-medium mt-1">Gramas de PET Reciclado</div>
+                        <p class="text-[10px] text-slate-500 mt-2">Evitado no meio ambiente</p>
+                    </div>
+
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/50 text-center">
+                        <div class="text-sky-400 text-3xl font-extrabold font-heading" id="resMetros">115 m</div>
+                        <div class="text-slate-400 text-xs font-medium mt-1">Filamento 1,75mm Gerado</div>
+                        <p class="text-[10px] text-slate-500 mt-2">Pronto para a impressora 3D</p>
+                    </div>
+
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/50 text-center">
+                        <div class="text-purple-400 text-3xl font-extrabold font-heading" id="resPecas">8 peças</div>
+                        <div class="text-slate-400 text-xs font-medium mt-1">Equipamentos de Física</div>
+                        <p class="text-[10px] text-slate-500 mt-2">Roldanas, suportes e ganchos</p>
+                    </div>
+
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/50 text-center">
+                        <div class="text-amber-400 text-3xl font-extrabold font-heading" id="resCO2">0,6 kg</div>
+                        <div class="text-slate-400 text-xs font-medium mt-1">Redução Estimada de CO₂</div>
+                        <p class="text-[10px] text-slate-500 mt-2">Pegada ecológica reduzida</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Onde Doar e Guia de Preparo -->
+    <section id="onde-doar" class="py-20 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-emerald-600 font-bold text-sm uppercase tracking-wider">Instruções Práticas</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+                    Guia de Doação & Localização
+                </h2>
+                <p class="text-slate-600 mt-2 text-base max-w-2xl mx-auto">
+                    Saiba quais garrafas trazer e onde fica nosso ponto de coleta.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Guia do que trazer -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-600"></i> Dicas de Preparação
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p class="text-slate-700 text-sm">
+                                    <strong>Garrafas Aceitas:</strong> Garrafas PET de refrigerante, água ou suco (transparentes, verdes, azuis ou marrons).
+                                </p>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p class="text-slate-700 text-sm">
+                                    <strong>Enxágue Rápido:</strong> Passe uma água rápida no interior para remover resíduos doces e evitar insetos.
+                                </p>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <p class="text-slate-700 text-sm">
+                                    <strong>Tampas e Rótulos:</strong> Podem ser trazidos junto! Nós fazemos a triagem e destinação correta.
+                                </p>
+                            </div>
+
+                            <div class="flex items-start gap-3 opacity-75">
+                                <div class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </div>
+                                <p class="text-slate-600 text-sm">
+                                    <strong>Evite:</strong> Embalagens de óleo de cozinha, produtos de limpeza pesados ou plásticos não-PET (ex: PP, PEAD).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-emerald-800 text-xs font-medium flex items-center gap-3">
+                        <i class="fa-solid fa-lightbulb text-emerald-600 text-lg"></i>
+                        <span>Preferimos garrafas de formato liso (com menos ondulações) pois facilitam o fatiamento em fitas!</span>
+                    </div>
+                </div>
+
+                <!-- Localização do Ponto de Coleta -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-8 shadow-xl flex flex-col justify-between border border-slate-700 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                        <i class="fa-solid fa-location-dot text-9xl text-white"></i>
+                    </div>
+
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold mb-4 border border-emerald-500/30">
+                            Ponto Oficial de Coleta
+                        </span>
+                        <h3 class="font-heading font-bold text-2xl mb-4">Entrada do Campus IFSP</h3>
+                        
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Nosso recipiente de arrecadação verde e identificado fica localizado logo na <strong>portaria principal do IFSP Câmpus Caraguatatuba</strong>. 
+                            Você pode deixar suas garrafas no caminho para a aula ou ao passar pelo campus!
+                        </p>
+
+                        <div class="space-y-3 text-xs text-slate-300">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-map-pin text-emerald-400 w-4"></i>
+                                <span>Av. Bahia, 1739 - Indaiá, Caraguatatuba - SP</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-clock text-emerald-400 w-4"></i>
+                                <span>Segunda a Sexta, das 07h às 22h</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-emerald-400 w-4"></i>
+                                <span>Laboratório de Física / Projeto PIBITI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-700/80 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">Dúvidas com a equipe?</span>
+                        <a href="mailto:caraguatatuba@ifsp.edu.br" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1">
+                            Fale com os Pesquisadores <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé Institucional -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+                    <i class="fa-solid fa-recycle"></i>
+                </div>
+                <span class="font-heading font-bold text-white text-lg">PET 3D IFSP Caraguatatuba</span>
+            </div>
+
+            <p class="text-xs text-slate-400 max-w-2xl mx-auto leading-relaxed mb-6">
+                Projeto Institucional de Bolsas de Iniciação em Desenvolvimento Tecnológico e Inovação (PIBITI) - Edital 16/2026. 
+                Desenvolvido no curso de Licenciatura em Física do Instituto Federal de Educação, Ciência e Tecnologia de São Paulo (IFSP) - Câmpus Caraguatatuba.
+            </p>
+
+            <div class="text-[11px] text-slate-500 border-t border-slate-900 pt-6">
+                &copy; 2026 IFSP Caraguatatuba. Orientação: Prof. Dr. Alex Lino. Alunos: Jose Walter Souza Santana & Arthur Cantuario Pereira.
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Lógica em JavaScript para a Calculadora -->
+    <script>
+        function calcularImpacto() {
+            const input = document.getElementById('qtdGarrafas');
+            let qtd = parseInt(input.value) || 0;
+            
+            if (qtd < 1) qtd = 1;
+
+            // Parâmetros Médios por garrafa de 2L:
+            // ~28 gramas de plástico limpo por garrafa
+            // ~11.5 metros de filamento 1.75mm por garrafa (~2.4g/metro)
+            // ~0.8 peça didática por garrafa (peças médias de física ~35g)
+            // ~0.06 kg de CO2 evitado por garrafa reciclada localmente
+            
+            const gramas = qtd * 28;
+            const metros = Math.round(qtd * 11.5);
+            const pecas = Math.floor(qtd * 0.8);
+            const co2 = (qtd * 0.06).toFixed(1);
+
+            document.getElementById('resMassa').innerText = gramas >= 1000 ? (gramas/1000).toFixed(2) + ' kg' : gramas + ' g';
+            document.getElementById('resMetros').innerText = metros + ' m';
+            document.getElementById('resPecas').innerText = pecas < 1 ? '< 1 peça' : pecas + ' peça' + (pecas > 1 ? 's' : '');
+            document.getElementById('resCO2').innerText = co2.replace('.', ',') + ' kg';
+        }
+
+        function alterarGarrafas(delta) {
+            const input = document.getElementById('qtdGarrafas');
+            let val = (parseInt(input.value) || 0) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+            calcularImpacto();
+        }
+
+        function setGarrafas(val) {
+            document.getElementById('qtdGarrafas').value = val;
+            calcularImpacto();
+        }
+
+        // Executar inicial
+        window.onload = function() {
+            calcularImpacto();
+        };
+    </script>
+
+</body>
+</html>
